@@ -1,4 +1,4 @@
-
+import { Credential } from "@prisma/client";
 
 export type ApplicationError = {
     name: string;
@@ -12,3 +12,6 @@ export type ApplicationError = {
     name: string;
     message: string;
   };
+
+
+  export type CreateCredential = Omit<Credential, 'id'>;

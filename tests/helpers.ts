@@ -5,10 +5,10 @@ import { createSession } from './factories/sessions-factory';
 import { prisma } from 'config/database'
 
 export async function cleanDb() {
-  
+  await prisma.credential.deleteMany({});
   await prisma.session.deleteMany({});
   await prisma.user.deleteMany({});
-  await prisma.credential.deleteMany({});
+ 
 }
 
 export async function generateValidToken(user?: User) {
