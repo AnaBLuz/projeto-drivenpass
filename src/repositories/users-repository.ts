@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import prisma from '../config/database';
+import { prisma } from '../config/database';
 
 async function findByEmail(email: string, select?: Prisma.UserSelect) {
   const params: Prisma.UserFindUniqueArgs = {
@@ -20,8 +20,14 @@ async function create(data: Prisma.UserUncheckedCreateInput) {
     data,
   });
 }
+async function createSession(data: Prisma.SessionUncheckedCreateInput) {
+  return prisma.session.create({
+    data,
+  });
+}
 
 export const userRepository = {
   findByEmail,
-  create
+  create,
+  createSession
 };

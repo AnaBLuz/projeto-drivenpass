@@ -1,7 +1,12 @@
 import Joi from 'joi';
-import { CreateUserParams } from '../services/index';
+import { CreateUserParams, SignInParams } from '../services/index';
 
 export const createUserSchema = Joi.object<CreateUserParams>({
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).required(),
+  password: Joi.string().min(10).required(),
+});
+
+export const signInSchema = Joi.object<SignInParams>({
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
 });

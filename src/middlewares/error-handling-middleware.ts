@@ -33,6 +33,12 @@ export function handleApplicationErrors(
     });
   }
 
+  if (err.name === 'InvalidCredentialsError' || err.name === 'JsonWebTokenError') {
+    return res.status(httpStatus.UNAUTHORIZED).send({
+      message: err.message,
+    });
+  }
+
 
   /* eslint-disable-next-line no-console */
   console.error(err);
