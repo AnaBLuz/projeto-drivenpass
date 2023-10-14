@@ -15,9 +15,9 @@ async function create(credential: CreateCredential) {
     });
 }
 
-async function findByTitle(title: string) {
+async function findByTitle(title: string, userId:number) {
     return prisma.credential.findFirst({
-        where: { title }
+        where: { title, userId }
     })
 }
 

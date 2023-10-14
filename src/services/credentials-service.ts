@@ -12,7 +12,7 @@ async function createCredential(credential: CreateCredential) {
   if (!title || !url || !username || !password || !userId) {
     throw validationError();
   }
-  const credentialAlreadyExists = await credentialRepository.findByTitle(title);
+  const credentialAlreadyExists = await credentialRepository.findByTitle(title, Number(userId));
   if (credentialAlreadyExists) throw validationError();
   const encryptedPassword = cryptr.encrypt(password);
   const newCredential = await credentialRepository.create({
