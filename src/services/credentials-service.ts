@@ -30,7 +30,7 @@ async function getCredentials(userId: number) {
     throw unauthorizedError();
   }
   const credentials = await credentialRepository.findAll(userId);
-  console.log('Service de Credentials:', credentials);
+  
   if (!credentials || credentials.length === 0) throw notFoundError();
   
   const credentialsWithDecryptedPassword = credentials.map((credential) => {
@@ -42,7 +42,7 @@ async function getCredentials(userId: number) {
 }
 
 async function getCredentialById(id: number, userId: number) {
-  if (!userId) throw notFoundError();
+  if (!userId) throw unauthorizedError();
   
   const credential = await credentialRepository.findById(id, userId);
   if (!credential) throw unauthorizedError();
@@ -53,10 +53,16 @@ async function getCredentialById(id: number, userId: number) {
   return newCredential;
 }
 
-async function deleteCredential(id: number) {
-  const credential = await credentialRepository.deleteCredential(id);
-  if (!credential) throw notFoundError();
+async function deleteCredential(id: number, userId: number) {
+  if (!userId) throw unauthorizedError();
+
+  const credential = await credentialRepository.findById(id, userId);
+  if (!credential) throw unauthorizedError();
+  
+  if (credential.userId !== userId) throw unauthorizedError();
+  
   await credentialRepository.deleteCredential(id);
+  return credential;
 }
 
 export const credentialService = {

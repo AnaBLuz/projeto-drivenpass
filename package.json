@@ -9,7 +9,8 @@
     "test:load-envs": "dotenv -e .env.test",
     "test:migration:run": "npm run test:load-envs prisma migrate deploy",
     "test": "cross-env NODE_ENV=test jest --runInBand",
-    "migration:run": "prisma migrate deploy"
+    "migration:run": "prisma migrate deploy",
+    "test:coverage": "npm run test:load-envs -- jest -- --coverage --runInBand"
   },
   "repository": {
     "type": "git",
